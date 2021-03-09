@@ -21,10 +21,6 @@ class Category(models.Model):
             self.c_slug = gen_slug(self.name)
         super().save(*args, **kwargs)
 
-    # def products_in_category(slug):
-    #     category = Category.objects.get(slug=slug)
-    #     return category.product_set.all()
-
     def subcategories_in_category(c_slug):
         category = Category.objects.get(cat_slug=c_slug)
         return category.subcategory_set.all()
@@ -34,7 +30,7 @@ class SubCategory(models.Model):
     name = models.CharField(max_length=50)
     subcat_slug = models.SlugField(blank=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,blank=True,null=True,related_name='sub_categories')
-    brands = models.ManyToManyField(Brand,related_name='subcategory_brands')
+    
 
     def __str__(self):
         return self.name
@@ -47,9 +43,6 @@ class SubCategory(models.Model):
             self.subcat_slug = gen_slug(self.name)
         super().save(*args, **kwargs)
 
-    # def products_in_subcategory(slug):
-    #     subcategory = SubCategory.objects.get(slug=slug)
-    #     return subcategory.product_set.all()
 
     def brands_in_subcategory(subcat_slug):
         subcategory = SubCategory.objects.get(subcat_slug=subcat_slug)

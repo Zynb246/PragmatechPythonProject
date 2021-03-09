@@ -12,8 +12,8 @@
         <br>
         <div class="container">
             <div class="row">
-                {% for x in categories %}
-                    <a href="{{x.get_absolute_url}}"><h3>{{x.name}}</h3></a>
+                {% for x in product %}
+                    <a href="{{x.get_absolute_url}}"><h3>{{x.product_name}}</h3></a>
                 {% endfor %}
             </div>
         </div>
