@@ -57,7 +57,7 @@
         </div>
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    {% for slider in slider.all  %}
+                    {% for slider in sliders %}
                         <div class="carousel-item {% if forloop.first %} active {% endif %}">
                             <img class="d-block w-100" src="{{slider.image.url}}" alt="{{slider.id}} slider">
                         </div>
