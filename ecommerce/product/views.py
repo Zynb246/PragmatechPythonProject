@@ -14,28 +14,3 @@ def product_detail(request, slug):
     }
     return render(request, 'product_detail.html', context)
 
-
-
-# class ProductDetail(ObjectViewedMixin, DetailView):
-#     queryset = Product.objects.all()
-#     template_name = 'products/product.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super(ProductDetail, self).get_context_data(**kwargs)
-#         context["cart"] = 'okey' # niye 'okey' yazmisiq bura?)
-#         return context
-    
-#     def get_object(self, *args, **kwargs):
-#         request = self.request
-#         id = self.kwargs.get('id')
-#         instance = Product.objects.get(id=id)
-#         return instance
-
-
-# def product(request):
-#     products = Product.objects.all()
-#     context = {
-#         'products': products,
-#         'user': request.user
-#     }
-#     return render(request, 'products/product.html', context)
