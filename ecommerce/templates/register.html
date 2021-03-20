@@ -1,16 +1,64 @@
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Login and Registe]ration Form-Easy Tutorials</title>
-    <link rel="stylesheet" href="/static/css/register.css">  
+    <meta charset="UTF-8">
+    <title>seek coding</title>
+    <link href="{% static 'static/admin/css/style.css' %}">
+    <!--we had linked our css file -->
 </head>
 <body>
-    <div class="hero">
-        <div class="form-box"></div>
-            <div class="button-box"></div>
+    <div class="full-page">
+        <div class="navbar">
+            <div>
+                <a href = "register.html"> Seek Coding </a>
+                <!--this if for the logo you can place 
+                a img here -->
+            </div>
+            <nav>
+                <ul id='MenuItems'>
+                    <li><a href='#'>Home</a></li>
+                    <li><a href='#'>About</a></li>
+                    <li><a href='#'>Services</a></li>
+                    <li><a href='#'>Contact</a></li>
+                    <li><button class='loginbtn'
+                    onclick="document.getElementById('lo
+                    gin-form').style.display='block'"
+                    style="width:auto;">Login</button>
+                    </li>
+                </ul>
+            </nav>
+            <!--navigation bar is finished lets run and see -->
+            <!--now let us make the styling for the navigation bar-->
         </div>
-    </div>
-
-
-
+        <div id='login-form'class='login-page'>
+        <!--creating the form box-->
+            <div class="form-box">
+                <div class='button-box'>
+                    <div id='btn'></div>
+                    <button type='button'onclick='login()'class='toggle-btn'>login</button>
+                    <button type ='button' onclick='Register()'class='toggle-btn'>Register</button>
+                </div>
+                <!--creating login form-->
+                <form id='login' class='input-group-login'>
+                  <input type='text' class='input-field'placeholder='Ender Id'requeired>
+                  <input type='password' class='input-field'placeholder='Ender Password'requeired>
+                  <input type='checkbox'class='check-box'><span>Remember Password</span>
+                  <button type='submit'class='submit-btn'>Log in</button>
+                </form>
+                <!--creating the register form-->
+                <form id='Register' class='input-group-register'>
+                    <input type='text' class='input-field'placeholder='First Name' requerid>
+                    <input type='text' class='input-field'placeholder='Last Name' requerid>
+                    <input type='text' class='input-field'placeholder='Email Id' requerid>
+                    <input type='text' class='input-field'placeholder='Enter Password' requerid>
+                    <input type='text' class='input-field'placeholder='Confirm Password' requerid>
+                    <input type='checkbox' class='check-box'><span>I agree to the terms and conditions</span>
+                    <button type ='submit' class='submit-btn'>Register</button>
+                </form>
+                <!--now let us style for the form page-->
+            </div>
+        </div>
+     </div>
 </body>
 </html>
