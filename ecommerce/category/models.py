@@ -1,51 +1,67 @@
 from django.db import models
 from utils.genslug import gen_slug
+from utils.mixin import DRF
 from django.urls import reverse
 from brand.models import *
 
 # Create your models here.
 
+
+
+
+
+
+class CategoryManager(models.Manager):
+    obj = DRF()
+    def sub_in_cat(self,**a):
+        b = self.obj.__dict__
+        b.update(**a)
+        return b
+        
+
+
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    c_slug = models.SlugField(blank=True)
+    cat_slug = models.SlugField(blank=True)
     title = models.TextField(blank=True, null=True)
-
+    objects = CategoryManager()
     def __str__(self):
         return self.name
-
+    
     def get_absolute_url(self):
-        return reverse("category_subcategories", kwargs={"cat_slug":self.c_slug})
+        return reverse("category_subcategories", kwargs={"cat_slug":self.cat_slug})
 
     def save(self, *args, **kwargs):
-        if not self.c_slug:
-            self.c_slug = gen_slug(self.name)
+        if not self.cat_slug:
+            self.cat_slug = gen_slug(self.name)
         super().save(*args, **kwargs)
 
-    def subcategories_in_category(c_slug):
-        category = Category.objects.get(cat_slug=c_slug)
-        return category.subcategory_set.all()
-    
+    def subcategories_in_category(cat_slug):
+        category = Category.objects.get(cat_slug=cat_slug)
+        return category.sub_categories.all()
+     
+    def r(self):
+        d = Category.objects.sub_in_cat(model=Category,slug='das-1617385606',relation='sub_categories')
+        return d
 
 class SubCategory(models.Model):
     name = models.CharField(max_length=50)
     subcat_slug = models.SlugField(blank=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,blank=True,null=True,related_name='sub_categories')
-    
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse("subcategory_brands", kwargs={"cat_slug":self.category.cat_slug,"subcat_slug": self.subcat_slug})
-
+    
     def save(self, *args, **kwargs):
         if not self.subcat_slug:
             self.subcat_slug = gen_slug(self.name)
         super().save(*args, **kwargs)
 
-
     def brands_in_subcategory(subcat_slug):
         subcategory = SubCategory.objects.get(subcat_slug=subcat_slug)
         return subcategory.brands.all()
 
-    

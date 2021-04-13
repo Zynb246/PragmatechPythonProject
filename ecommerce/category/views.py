@@ -10,14 +10,14 @@ def category(request):
     }
     return render(request, 'category.html', context)
 
-def category_subcategories(request, c_slug):
-    subcategories = Category.subcategories_in_category(c_slug)
+def category_subcategories(request, cat_slug):
+    subcategories = Category.subcategories_in_category(cat_slug)
     context = {
         'subcategories':subcategories
     }
     return render(request, 'category_subcategories.html', context)
 
-def subcategory_brands(request, c_slug, subcat_slug):
+def subcategory_brands(request, cat_slug, subcat_slug):
     brands = SubCategory.brands_in_subcategory(subcat_slug)
     context = {
         'brands':brands

@@ -1,24 +1,56 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from category.models import *
-from Staticpage.models import Slider
+from staticpage.models import *
 from product.models import Product
-from django.http import JsonResponse
+from django.http import JsonResponse, request
+from django.views.decorators.csrf import csrf_exempt
+from utils.mixin import DRF
+from django.views.generic import TemplateView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import ProductSerializers
 
-# Create your views here.
+
+class ProductViews(APIView):
+    def get(self,request):
+        product = Product.objects.all()
+        serializer = ProductSerializers(product,many=True)
+        return Response(serializer.data)
+
+    def post(self,request):
+        serializer = ProductSerializers(data= request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+
+
+
+
+
+
+
 
 def index(request):
     categories = Category.objects.prefetch_related('sub_categories').all()
-    slider = Slider.objects.all()
-    #request.session['test'] = 10
-    #print(request.session['wishlist'])
-    product = Product.objects.all()[:10]
-    context = {
-        'sliders':slider,
-        'categories':categories,
-        'pro':product,
-    }
-    return render(request,'index.html',context)
+    c = Category.objects.get(id=1)
+    a = c.r()
+    print(a)
 
+    sliders = Slider.objects.all()
+    #request.session['test'] = 10
+    print(request.session.items())
+    products = Product.objects.all()[:10]
+    context = {
+        'categories':categories,
+        'sliders':sliders,
+        'c': c,
+        'products':products, 
+    }
+    return render(request,'index.html', context)
+    
+@csrf_exempt
 def add_to_wishlist(request,id):
     if request.method == "POST":
         if not request.session.get('wishlist'):
@@ -27,22 +59,20 @@ def add_to_wishlist(request,id):
             request.session['wishlist'] = list(request.session['wishlist'])
         items = next((item for item in request.session['wishlist'] if item['id']==id),False)
     add_data = {
-        'id':id
+        'id':id,
     }
     if not items:
         request.session['wishlist'].append(add_data)
         request.session.modifier = True
     return redirect('index')
 
-from django.views.decorators.csrf import csrf_exempt
-@csrf_exempt 
+@csrf_exempt
 def remove_wishlist(request):
     if request.method == 'POST':
         id = request.POST.get('id')
         for i in request.session['wishlist']:
             if str(i['id']) == id:
                 i.clear()
-                request.session.modifer = True
         while {} in request.session['wishlist']:
             request.session['wishlist'].remove({})
         if not request.session['wishlist']:
@@ -53,3 +83,5 @@ def remove_wishlist(request):
         pass
     request.session.modifier = True
     return JsonResponse({'status':'ok'})
+
+
