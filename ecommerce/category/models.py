@@ -7,25 +7,11 @@ from brand.models import *
 # Create your models here.
 
 
-
-
-
-
-class CategoryManager(models.Manager):
-    obj = DRF()
-    def sub_in_cat(self,**a):
-        b = self.obj.__dict__
-        b.update(**a)
-        return b
-        
-
-
-
 class Category(models.Model):
     name = models.CharField(max_length=50)
     cat_slug = models.SlugField(blank=True)
     title = models.TextField(blank=True, null=True)
-    objects = CategoryManager()
+    
     def __str__(self):
         return self.name
     
@@ -41,10 +27,6 @@ class Category(models.Model):
         category = Category.objects.get(cat_slug=cat_slug)
         return category.sub_categories.all()
      
-    def r(self):
-        d = Category.objects.sub_in_cat(model=Category,slug='das-1617385606',relation='sub_categories')
-        return d
-
 class SubCategory(models.Model):
     name = models.CharField(max_length=50)
     subcat_slug = models.SlugField(blank=True)

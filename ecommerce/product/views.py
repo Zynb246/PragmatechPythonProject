@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 def product_details(request, cat_slug, subcat_slug, brand_slug, product_slug):
-    product = Product.objects.get(slug=product_slug)
+    product = Product.objects.get(cat_slug=product_slug)
     context = {
         'product':product
     }
