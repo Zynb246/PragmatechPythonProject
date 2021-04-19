@@ -49,21 +49,12 @@ class ProductDetailViews(APIView):
                 return Response(serializer.data)
             return Response(serializer.errors)
         else:
-            return Response({"status":"400 Error"},status=status.HTTP_400_BAD_REQUEST)
+           return Response({"status":"400 Error"},status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self,request,id):
         product = Product.objects.get(id=id)
         product.delete()
         return Response({"success":"mehsul silindi"})
-
-
-
-
-
-
-
-
-
 
 
 def index(request):

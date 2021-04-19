@@ -14,7 +14,6 @@ class SubCategorySerializers(serializers.ModelSerializer):
         model = SubCategory
         fields = '__all__'
 
-
 class BrandSerializers(serializers.ModelSerializer):
     sub_category = SubCategorySerializers(read_only=True)
     class Meta:
