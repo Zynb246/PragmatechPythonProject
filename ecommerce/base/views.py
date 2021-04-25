@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
+from django.contrib.auth.forms import UserCreationForm
 from category.models import *
 from staticpage.models import *
 from product.models import Product
@@ -13,6 +14,7 @@ from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework import status
 
+
 class ModelORder(viewsets.ModelViewSet):
     serializer_class = ProductSerializers
     queryset = Product.objects.all()
@@ -26,6 +28,7 @@ class ProductViews(APIView):
 
     def post(self,request):
         serializer = ProductSerializers(data= request.data)
+        print(request.META)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -103,5 +106,4 @@ def remove_wishlist(request):
         pass
     request.session.modifier = True
     return JsonResponse({'status':'ok'})
-
 

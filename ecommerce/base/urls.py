@@ -2,11 +2,11 @@ from django.urls import path,include
 from .views import *
 from rest_framework import routers
 from rest_framework.routers import DefaultRouter
+
 router = DefaultRouter()
 router.register(r'model', ModelORder, basename='model')
 
 urlpatterns = [
-    
     path('api/v1/', include (router.urls)),
     path('', index, name='index'),
     path('api/product',ProductViews.as_view()),

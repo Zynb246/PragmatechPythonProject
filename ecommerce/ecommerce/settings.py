@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'rest_framework',
     'rest_framework.authtoken',
     'staticpage',
@@ -155,8 +156,9 @@ CSRF_COOKIE_HTTPONLY = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-REST_FRAMEWORK = {
-   'DEFAULT_AUTHENTICATION_CLASSES':(
-      'rest_framework.authentication.TokenAuthentication',
-   ),
-}
+#REST_FRAMEWORK = {
+  # 'DEFAULT_AUTHENTICATION_CLASSES':(
+  #    'rest_framework.authentication.TokenAuthentication',
+  # ),
+#}
+LOGIN_REDIRECT_URL = '/accounts/dashboard/'
