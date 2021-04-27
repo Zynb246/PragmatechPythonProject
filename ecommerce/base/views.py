@@ -19,6 +19,9 @@ class ModelORder(viewsets.ModelViewSet):
     serializer_class = ProductSerializers
     queryset = Product.objects.all()
 
+    def get_queryset(self):
+        return Product.objects.all()
+
 
 class ProductViews(APIView):
     def get(self,request):
