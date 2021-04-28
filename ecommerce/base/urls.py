@@ -8,6 +8,7 @@ router.register(r'model', ModelORder, basename='model')
 
 urlpatterns = [
     path('api/v1/', include (router.urls)),
+   
     path('', index, name='index'),
     path('api/product',ProductViews.as_view()),
     path('api/product/<id>/',ProductDetailViews.as_view()),

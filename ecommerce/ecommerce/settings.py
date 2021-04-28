@@ -156,9 +156,11 @@ CSRF_COOKIE_HTTPONLY = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-#REST_FRAMEWORK = {
-  # 'DEFAULT_AUTHENTICATION_CLASSES':(
-  #    'rest_framework.authentication.TokenAuthentication',
-  # ),
-#}
+REST_FRAMEWORK = {
+  'DEFAULT_AUTHENTICATION_CLASSES':(
+    #'rest_framework.authentication.TokenAuthentication',
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
+   ),
+}
+
 LOGIN_REDIRECT_URL = '/accounts/dashboard/'
