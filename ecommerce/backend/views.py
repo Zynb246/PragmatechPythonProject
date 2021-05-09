@@ -4,8 +4,9 @@ from rest_framework.response import Response
 from .serializers import *
 from rest_framework import status
 from backend.models import User
-from .serializers import TokenPairSerializers, RegisterSerializers
 from rest_framework_simplejwt.views import TokenObtainPairView
+              # registration import
+from .serializers import TokenPairSerializers, RegisterSerializers
 from .models import User
 from rest_framework import generics
 

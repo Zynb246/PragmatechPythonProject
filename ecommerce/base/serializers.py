@@ -25,6 +25,14 @@ class ProductFileSerializers(serializers.ModelSerializer):
         model = ProductFile
         exclude = ['product',]
 
+
+#
+class ProductList(serializers.ListSerializer):
+    def to_representation(self,data):
+        qs = self.context['request'].GET.get('category')
+        data = data.filter()
+        return super().to_representation(data)
+#
 class ProductPrice(serializers.Field):
     def to_representation(self, value):
         price_list = {
@@ -39,7 +47,7 @@ class ProductSerializers(serializers.ModelSerializer):
     category = serializers.SerializerMethodField()
     class Meta:
         model = Product
-        exclude = ['product_price', 'product_discount',"product_discount_price",]
+        exclude = ['product_price', 'product_discount',"product_discount_price", ]
     
     def get_category(self,obj):
         ids = obj.product_brand.sub_category.category.id
